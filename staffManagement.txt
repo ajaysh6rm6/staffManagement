@@ -1,0 +1,37 @@
+#staffManagement with allowed permissions
+
+STEP1==>>create tables in models.py
+class users(models.Model):
+    STATUS_CHOICES = (
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    )
+    roleid=models.IntegerField() 
+    username=models.CharField(max_length = 200)
+    password=models.CharField(max_length=200)    
+    Status=models.CharField(max_length=200, choices=STATUS_CHOICES)
+    Expirydate=models.CharField(max_length=200)
+    class Meta:
+        unique_together = ('roleid', 'username')
+        db_table = 'users'
+
+class permission(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    class Meta:
+        db_table = 'permission'
+    
+
+class role(models.Model): 
+    name = models.CharField(max_length=200, unique=True)  
+    class Meta:
+        db_table = 'role'
+
+class rel_role_permission(models.Model):
+    roleid = models.IntegerField()
+    permissionid = models.IntegerField() 
+    class Meta:
+        db_table = 'rel_role_permission'
+
+		
+STEP2==>>create module(staffManagement) with staffManagement.py file		
+		
